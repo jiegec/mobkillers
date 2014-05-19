@@ -1,0 +1,16 @@
+[
+{
+  "modid": "mobkillers",
+  "name": "Mob Killers",
+  "description": "Kill the mobs to protect you!",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authors": ["wiadufachen"],
+  "credits": "",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
