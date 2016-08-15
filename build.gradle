@@ -29,7 +29,7 @@ buildscript {
 apply plugin: 'forge'
 // apply plugin: 'liteloader'
 
-version = "1.0" + ver.build
+version = "1.1." + ver.build
 group = "com.github.wiadufachen.mobkillers" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "mobkillers"
 
@@ -39,6 +39,7 @@ minecraft {
     version = "1.7.10-10.13.4.1558-1.7.10"
     runDir = 'run'
 
+    replaceIn 'MobKillers.java'
     replace '@MOD_VERSION', project.version
 }
 

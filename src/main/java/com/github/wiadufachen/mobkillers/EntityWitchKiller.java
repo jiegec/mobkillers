@@ -23,6 +23,10 @@ public class EntityWitchKiller extends EntityWitch {
         this.tasks.addTask(3, new EntityAILookIdle(this));
         this.targetTasks.taskEntries.clear();
         // this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
-        this.targetTasks.addTask(2, new MyEntityAINearestAttackableTarget(this, EntityCreature.class, 0, true, false, null));
+        this.targetTasks.addTask(2, new MyEntityAINearestAttackableTarget(this, Entity.class, 0, true, false, null));
+    }
+
+    protected boolean canDespawn() {
+        return false;
     }
 }

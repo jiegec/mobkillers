@@ -25,10 +25,14 @@ public class EntitySkeletonKiller extends EntitySkeleton {
                 this.tasks.addTask(6, new EntityAILookIdle(this));
                 this.targetTasks.taskEntries.clear();
                 // this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
-                this.targetTasks.addTask(2, new MyEntityAINearestAttackableTarget(this, EntityCreature.class, 0, true, false, null));
+                this.targetTasks.addTask(2, new MyEntityAINearestAttackableTarget(this, Entity.class, 0, true, false, null));
 
                 if (world != null && !world.isRemote) {
                         this.setCombatTask();
                 }
+        }
+
+        protected boolean canDespawn() {
+                return false;
         }
 }
