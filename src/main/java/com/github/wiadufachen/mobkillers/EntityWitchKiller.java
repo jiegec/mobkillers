@@ -1,6 +1,7 @@
 package com.github.wiadufachen.mobkillers;
 
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.ai.*;
 import net.minecraft.entity.monster.EntityWitch;
 import net.minecraft.entity.monster.IMob;
@@ -17,11 +18,11 @@ public class EntityWitchKiller extends EntityWitch {
         this.tasks.taskEntries.clear();
         this.tasks.addTask(1, new EntityAISwimming(this));
         this.tasks.addTask(2, new EntityAIArrowAttack(this, 1.0D, 60, 10.0F));
-        //this.tasks.addTask(2, new EntityAIWander(this, 1.0D));
+        // this.tasks.addTask(2, new EntityAIWander(this, 1.0D));
         this.tasks.addTask(3, new EntityAIWatchClosest(this, IMob.class, 8.0F));
         this.tasks.addTask(3, new EntityAILookIdle(this));
         this.targetTasks.taskEntries.clear();
-        this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
-        this.targetTasks.addTask(2, new MyEntityAINearestAttackableTarget(this, IMob.class, 0, true, false, null));
+        // this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
+        this.targetTasks.addTask(2, new MyEntityAINearestAttackableTarget(this, EntityCreature.class, 0, true, false, null));
     }
 }

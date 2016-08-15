@@ -6,6 +6,8 @@ import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.monster.IMob;
+import net.minecraft.entity.monster.EntityGolem;
 
 /**
  * Created by win7 on 2014-05-08.
@@ -29,6 +31,12 @@ public class MyEntityAINearestAttackableTarget extends EntityAINearestAttackable
         if(var1 instanceof EntityWitchKiller) {
             return false;
         }
-        return true;
+        if (var1 instanceof EntityGolem) {
+            return false;
+        }
+        if (var1 instanceof IMob) {
+            return true;
+        }
+        return false;
     }
 }

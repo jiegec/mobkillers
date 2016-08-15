@@ -1,0 +1,4 @@
+#mobkillers version
+#Mon Aug 15 12:38:32 CST 2016
+revision=2
+build=2

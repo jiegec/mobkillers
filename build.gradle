@@ -1,3 +1,14 @@
+Properties ver = new Properties()
+File versionFile = new File('version.txt')
+
+// build is to distinguish bugfix releases, as the fourth number in the mod version. Resets when any of the others increase.
+ver.build = 0
+
+// revision is used by liteloader, and is required to increase (by an arbitrary amount) with each public release
+ver.revision = 0
+
+ver.load(versionFile.newDataInputStream())
+
 buildscript {
     repositories {
         mavenCentral()
@@ -16,14 +27,19 @@ buildscript {
 }
 
 apply plugin: 'forge'
+// apply plugin: 'liteloader'
 
-version = "1.0"
-group= "com.github.wiadufachen.mobkillers" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+version = "1.0" + ver.build
+group = "com.github.wiadufachen.mobkillers" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "mobkillers"
 
+// ext.llrevision = '03'
+
 minecraft {
-    version = "1.7.2-10.12.1.1060"
-    assetDir = "eclipse/assets"
+    version = "1.7.10-10.13.4.1558-1.7.10"
+    runDir = 'run'
+
+    replace '@MOD_VERSION', project.version
 }
 
 processResources
@@ -31,17 +47,41 @@ processResources
     // this will ensure that this task is redone when the versions change.
     inputs.property "version", project.version
     inputs.property "mcversion", project.minecraft.version
+    inputs.property "revison", ver.revision
 
     // replace stuff in mcmod.info, nothing else
     from(sourceSets.main.resources.srcDirs) {
         include 'mcmod.info'
+        // include 'litemod.json'
                 
         // replace version and mcversion
-        expand 'version':project.version, 'mcversion':project.minecraft.version
+        expand 'version':project.version, 'mcversion':project.minecraft.version, 'revision':ver.revision // llrevision
     }
         
     // copy everything else, thats not the mcmod.info
     from(sourceSets.main.resources.srcDirs) {
         exclude 'mcmod.info'
+        // exclude 'litemod.json'
     }
+}
+
+task deobfJar(type: Jar) {
+    from sourceSets.main.output
+    classifier = 'dev'
+}
+
+task sourcesJar(type: Jar) {
+    from sourceSets.main.allJava
+    classifier = 'sources'
+}
+
+artifacts {
+    archives deobfJar
+    archives sourcesJar
+}
+
+build.doLast {
+    ver.build++
+    ver.revision++
+    ver.store(versionFile.newOutputStream(), "mobkillers version")
 }
